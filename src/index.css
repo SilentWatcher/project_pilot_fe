@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark body {
+    background-color: #0F172A;
+    color: #F8FAFC;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#38BDF8] text-white px-6 py-3 rounded-xl font-medium 
+           hover:bg-[#0EA5E9] transition-all duration-200 
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-[#38BDF8] focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-white border border-[#CBD5E1] text-[#1E293B] px-6 py-3 rounded-xl font-medium 
+           hover:bg-gray-50 transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-[#38BDF8] focus:ring-offset-2;
+  }
+
+  .btn-danger {
+    @apply bg-[#EF4444] text-white px-6 py-3 rounded-xl font-medium 
+           hover:bg-red-600 transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed
+           focus:outline-none focus:ring-2 focus:ring-[#EF4444] focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-[#64748B] hover:text-[#0F172A] hover:bg-gray-100 
+           rounded-xl transition-all duration-200 font-medium;
+  }
+
+  .input-field {
+    @apply w-full h-12 px-4 border border-[#CBD5E1] rounded-xl 
+           focus:outline-none focus:border-[#38BDF8] focus:ring-1 focus:ring-[#38BDF8]
+           transition-all duration-200 bg-white text-[#0F172A] placeholder:text-[#64748B];
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-[#E2E8F0] p-6 transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-card-hover hover:border-[#38BDF8]/20;
+  }
+
+  .dark .card,
+  .dark .card-hover {
+    @apply bg-[#1E293B] border-[#334155];
+  }
+
+  .section-title {
+    @apply text-xl font-bold text-[#0F172A];
+  }
+
+  .dark .section-title {
+    @apply text-[#F8FAFC];
+  }
+
+  .text-muted {
+    @apply text-[#64748B];
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+.dark .skeleton {
+  @apply bg-gray-700;
+}
+
+.toast-success {
+  background: #22C55E !important;
+  color: white !important;
+}
+
+.toast-error {
+  background: #EF4444 !important;
+  color: white !important;
+}
