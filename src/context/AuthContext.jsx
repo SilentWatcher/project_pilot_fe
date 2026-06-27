@@ -9,10 +9,16 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const fetchUser = useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setLoading(false);
+      return;
+    }
     try {
       const res = await axios.get('/api/auth/me');
       setUser(res.data.data);
     } catch {
+      localStorage.removeItem('token');
       setUser(null);
     } finally {
       setLoading(false);
@@ -25,7 +31,8 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const res = await axios.post('/api/auth/login', { email, password });
-    const { user: userData } = res.data.data;
+    const { user: userData, token } = res.data.data;
+    localStorage.setItem('token', token);
     setUser(userData);
     toast.success('Login successful');
     return userData;
@@ -33,18 +40,15 @@ export function AuthProvider({ children }) {
 
   const register = async (name, email, password, role) => {
     const res = await axios.post('/api/auth/register', { name, email, password, role });
-    const { user: userData } = res.data.data;
+    const { user: userData, token } = res.data.data;
+    localStorage.setItem('token', token);
     setUser(userData);
     toast.success('Registration successful');
     return userData;
   };
 
   const logout = async () => {
-    try {
-      await axios.post('/api/auth/logout');
-    } catch {
-      // proceed regardless
-    }
+    localStorage.removeItem('token');
     setUser(null);
     toast.success('Logged out');
   };
